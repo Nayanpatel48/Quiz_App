@@ -19,11 +19,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   // "When this screen is permanently gone, clean up the text field controllers to prevent memory leaks."
   @override
   void dispose() {
@@ -36,7 +31,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('SignUp')),
+      appBar: AppBar(title: const Text('SignUp Page')),
       body: ChangeNotifierProvider(
         create: (_) => AuthViewModel(),
         child: Consumer<AuthViewModel>(
