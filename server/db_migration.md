@@ -8,7 +8,7 @@
     Use `alembic init` to create the standard structure, including the `alembic.ini` configuration file and the `alembic` scripts folder. Since the error suggests the missing folder is named `alembic`, use that name for initialization:
 
     ```bash
-    (venv) $ alembic init alembic
+    alembic init alembic
     ```
 
 3.  **Review the Generated Files:**
@@ -31,7 +31,7 @@
     After configuration, your original command will now work:
 
     ```bash
-    (venv) $ alembic revision --autogenerate -m "create initial user and history tables"
+    alembic revision --autogenerate -m "create initial user and history tables"
     ```
 
 - Project virtualenv active.

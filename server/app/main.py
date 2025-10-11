@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import auth
+from app.api import auth, history
 from app.models import models
 from app.database.database import engine
 
@@ -28,6 +28,7 @@ app.add_middleware(
 # Think of your main application app as a large department store. Instead of putting everything in 
 # one big messy room, you create separate departments for different things.
 #     auth.router : This is the Security Department (handles logins).
+#     history.router : This is history department (handles history fetching from postgresql database)
 
 # Each line of code does two main things:
 #     app.include_router(...) : This tells your main store, "Set up and include this new department."
@@ -36,6 +37,7 @@ app.add_middleware(
 #                           prevents confusion between 
 # departments.
 app.include_router(auth.router, prefix='/auth', tags=['authentication'])
+app.include_router(history.router, prefix='/history', tags=['history'])
 
 @app.get('/')
 def root():

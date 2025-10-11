@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:repradar/Auth/model/user_login_model.dart';
 import 'package:repradar/Auth/model/user_model.dart';
