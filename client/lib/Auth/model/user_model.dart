@@ -9,19 +9,17 @@
 
 class User {
   //properties of the class
-  final int id;
+  final int? id;
   final String username;
   final String email;
   final String hashedPassword;
-  final DateTime? createdAt;
 
   //constructor
   User({
-    required this.id,
+    this.id,
     required this.username,
     required this.email,
     required this.hashedPassword,
-    required this.createdAt,
   });
 
   //JSON to Dart object converter method
@@ -30,15 +28,12 @@ class User {
     username: json['username'],
     email: json['email'],
     hashedPassword: json['hashedPassword'],
-    createdAt: json['createdAt'],
   );
 
   //Dart object to JSON converter method
   Map<String, dynamic> toJson() => {
-    'id': id,
     'username': username,
     'email': email,
-    'hashedPassword': hashedPassword,
-    'createdAt': createdAt,
+    'password': hashedPassword,
   };
 }
