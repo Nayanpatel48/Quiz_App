@@ -10,6 +10,6 @@ class PythonPage extends StatefulWidget {
 class _PythonPageState extends State<PythonPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: const Text('Python Text')));
+    return Scaffold(appBar: AppBar(title: const Text('Python Test')));
   }
 }

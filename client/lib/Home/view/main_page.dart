@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:repradar/History/view/history_page.dart';
 import 'package:repradar/Home/view/home_page.dart';
 import 'package:repradar/Settings/view/settings_page.dart';
 
@@ -15,7 +16,7 @@ class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
   //final list of pages that will be displayed
-  final _pages = [HomePage(), SettingsPage()];
+  final _pages = [HomePage(), HistoryPage(), SettingsPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +56,10 @@ class _MainPageState extends State<MainPage> {
           selectedItemColor: Colors.blue,
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.history),
+              label: 'History',
+            ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
               label: 'Settings',

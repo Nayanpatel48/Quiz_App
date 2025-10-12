@@ -33,3 +33,4 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - .env # <-- Add this line
+    - lib/assets/images
