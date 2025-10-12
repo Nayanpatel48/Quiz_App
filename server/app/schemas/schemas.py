@@ -67,3 +67,13 @@ class GetCurrUser(BaseModel):
     id : int
     username : str
     email : str
+
+# python questions schema
+class PythonQuestionsSchema(BaseModel):
+    id : int
+    question : str
+    option_a : str
+    option_b : str
+    option_c : str
+    option_d : str
+    answer : str

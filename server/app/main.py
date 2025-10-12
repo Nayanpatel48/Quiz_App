@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import auth, history
+from app.api import auth, history, questions
 from app.models import models
 from app.database.database import engine
 
@@ -38,6 +38,7 @@ app.add_middleware(
 # departments.
 app.include_router(auth.router, prefix='/auth', tags=['authentication'])
 app.include_router(history.router, prefix='/history', tags=['history'])
+app.include_router(questions.router, prefix='/questions', tags=['questions'])
 
 @app.get('/')
 def root():

@@ -22,12 +22,12 @@ class PythonQuestionsModel {
   //Json to Dart conversion
   factory PythonQuestionsModel.fromJson(Map<String, dynamic> json) =>
       PythonQuestionsModel(
-        id: json['id'],
-        question: json['question'],
-        optionA: json['optionA'],
-        optionB: json['optionB'],
-        optionC: json['optionC'],
-        optionD: json['optionD'],
-        answer: json['answer'],
+        id: json['id'] as int,
+        question: json['question'] as String,
+        optionA: json['option_a'] as String,
+        optionB: json['option_b'] as String,
+        optionC: json['option_c'] as String,
+        optionD: json['option_d'] as String,
+        answer: json['answer'] as String,
       );
 }
