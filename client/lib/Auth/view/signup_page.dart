@@ -5,7 +5,7 @@ import 'package:repradar/Auth/model/user_model.dart';
 import 'package:repradar/Auth/view/login_page.dart';
 import 'package:repradar/Auth/view/widgets/loading_indicator.dart';
 import 'package:repradar/Auth/viewmodel/auth_view_model.dart';
-import 'package:repradar/Home/view/home_page.dart';
+import 'package:repradar/Home/view/main_page.dart';
 
 class SignUpPage extends StatefulWidget {
   //constructor
@@ -112,11 +112,11 @@ class _SignUpPageState extends State<SignUpPage> {
                               context,
                             ).showSnackBar(SnackBar(content: Text(message)));
 
-                            void redirectHomeScreen() {
+                            void redirectMainPage() {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => const HomePage(),
+                                  builder: (_) => const MainPage(),
                                 ),
                               );
                             }
@@ -124,7 +124,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             //after successfully registered as well as logged in we'll redirect them
                             //to the home screen
                             if (vm.isUserCreated && vm.isLoading) {
-                              redirectHomeScreen();
+                              redirectMainPage();
                             }
                           },
                           child: const Text('Sign Up'),

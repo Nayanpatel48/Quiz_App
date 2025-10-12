@@ -51,3 +51,19 @@ class Token(BaseModel):
     access_token : str
     token_type : str
     id : int
+
+class HistorySchema(BaseModel):
+    id : int
+    test_name : str
+    user_id : int
+    score : int
+    created_at : datetime
+
+    class Config:
+        from_attributes = True
+
+# get current User schema
+class GetCurrUser(BaseModel):
+    id : int
+    username : str
+    email : str

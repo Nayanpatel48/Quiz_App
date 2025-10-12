@@ -42,7 +42,7 @@ class HistoryModel(Base):
     # relationship to the one side table
     # this line adds a user attribute to your History Model. When you query a History object, 
     # you can now access their respective user directly, like my_history.user.
-    user = relationship('UserModel', back_populates='history')
+    users = relationship('UserModel', back_populates='history')
 
 # this is table for JavaScript related questions
 class JsQuestionsModel(Base):

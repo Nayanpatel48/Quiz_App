@@ -4,7 +4,7 @@ import 'package:repradar/Auth/model/user_login_model.dart';
 import 'package:repradar/Auth/view/signup_page.dart';
 import 'package:repradar/Auth/view/widgets/loading_indicator.dart';
 import 'package:repradar/Auth/viewmodel/auth_view_model.dart';
-import 'package:repradar/Home/view/home_page.dart';
+import 'package:repradar/Home/view/main_page.dart';
 
 class LoginPage extends StatefulWidget {
   // constructor
@@ -81,18 +81,18 @@ class _LoginPageState extends State<LoginPage> {
                               context,
                             ).showSnackBar(SnackBar(content: Text(message)));
 
-                            void redirectHome() {
+                            void redirectMainPage() {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => const HomePage(),
+                                  builder: (_) => const MainPage(),
                                 ),
                               );
                             }
 
                             // after successful login redirect user to the homepage
                             if (vm.isUserLoggedIn) {
-                              redirectHome();
+                              redirectMainPage();
                             }
                           },
                           child: const Text('Login'),

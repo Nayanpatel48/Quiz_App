@@ -1,10 +1,12 @@
 from datetime import datetime, timedelta
+from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
-from app.core.security import ACCESS_TOKEN_EXPIRE_MINUTES, get_password_hash, verify_password, create_access_token
+from app.core.security import ACCESS_TOKEN_EXPIRE_MINUTES, decode_jwt, get_password_hash, verify_password, create_access_token
 from app.database.database import get_db
 from app.models.models import UserModel
-from app.schemas.schemas import Token, User, UserCreate, UserLogin
+from app.schemas.schemas import GetCurrUser, Token, User, UserCreate, UserLogin
 
 # purpose of this code : This code defines the API endpoints related to the currently logged-in 
 #                        user's profile. It uses the conventional /me path to allow a user to manage 
@@ -13,6 +15,9 @@ from app.schemas.schemas import Token, User, UserCreate, UserLogin
 # 1 : this let you group related endpoints together 
 
 router = APIRouter()
+
+# it is like door keeper who wants temporary premium pass so that you can enter in the club.
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 # 2. create a new user
 # This is the endpoint for creating a user.
@@ -71,3 +76,24 @@ def login_user(user: UserLogin, db : Session = Depends(get_db)):
         'token_type': 'bearer',
         'id':db_user.id,
         }
+
+# 4. get currently logged in user
+@router.get('/current_user', response_model=GetCurrUser)
+def get_current_user_data(
+    token: Annotated[str, Depends(oauth2_scheme)],
+    # Token is the string from the Authorization header
+    db : Session = Depends(get_db),
+    ):
+    # 1. Decode the token to get the user identifier (e.g., ID).
+    user_id = decode_jwt(token)
+
+    # 2. Look up the user in the database using the ID.
+    # This is where your actual DB query goes.
+    user = db.query(UserModel).filter(UserModel.id == user_id).first()
+    
+    # 3. if user not found.
+    if not user:
+        raise HTTPException(status_code=404, detail='User not found!')
+    
+    # 4. if user found then return it.
+    return user
