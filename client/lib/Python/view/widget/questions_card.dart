@@ -50,7 +50,7 @@ class QuestionsCard extends StatelessWidget {
               return Padding(
                 padding: EdgeInsets.symmetric(vertical: 4.0),
                 child: ElevatedButton(
-                  // 2. Style the button based on the saved state
+                  // 1. Style the button based on the saved state
                   style: ElevatedButton.styleFrom(
                     backgroundColor: isSelected
                         ? Colors.blue.shade100
@@ -58,7 +58,7 @@ class QuestionsCard extends StatelessWidget {
                     elevation: 0,
                   ),
                   onPressed: () {
-                    // 3. Immediately tell the ViewModel the new choice
+                    // 2. Immediately tell the ViewModel the new choice
                     onOptionSelected!(optionText);
                   },
                   child: Align(

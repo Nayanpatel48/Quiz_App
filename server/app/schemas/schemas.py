@@ -78,6 +78,16 @@ class PythonQuestionsSchema(BaseModel):
     option_d : str
     answer : str
 
+# js questions schema
+class JsQuestionsSchema(BaseModel):
+    id : int
+    question : str
+    option_a : str
+    option_b : str
+    option_c : str
+    option_d : str
+    answer : str
+
 # history save schema
 class HistorySaveSchema(BaseModel): 
     test_name : str

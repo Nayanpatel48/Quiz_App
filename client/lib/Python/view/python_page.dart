@@ -63,10 +63,6 @@ class _PythonPageState extends State<PythonPage> {
                           questionModel: questionModel,
                           onOptionSelected: (selectedAnswer) {
                             // This callback gets the actual string of the selected option
-                            print(
-                              'Question ${questionModel.id}: User selected: $selectedAnswer',
-                            );
-                            print(vm.getUserAnswers());
                             vm.recordAnswer(index, selectedAnswer!);
                             // Here, you would typically update a map of user answers
                             // userAnswers[question.id] = selectedAnswer;

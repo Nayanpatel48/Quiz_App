@@ -9,26 +9,26 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:repradar/Python/model/history_model.dart';
-import 'package:repradar/Python/model/python_questions_model.dart';
+import 'package:repradar/Js/model/history_js_model.dart';
+import 'package:repradar/Js/model/js_questions_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PythonViewModel extends ChangeNotifier {
-  //1. This line creates & configure your app's main connection to your backend server.
+class JsViewModel extends ChangeNotifier {
+  //1. this line creates & configures your main app's connection with your app's backend
   final Dio _dio = Dio(
     BaseOptions(baseUrl: 'http://127.0.0.1:8000'),
-  ); //FastAPI URL
+  ); //FAST API Url
 
-  //2. To store all the python related questions available in our postgres database
-  List<PythonQuestionsModel> questionsList = [];
+  //2. list all the javascript related questions available in the database
+  List<JsQuestionsModel> questionsList = [];
 
-  //3. for keep track of loading state
+  //3. keep track of loading state
   bool isLoading = false;
 
-  //4. store the selected answers by the user during test in view model
+  //4.store the selected answers by user during the test
   final Map<int, String> _userAnswers = {};
 
-  //5. getter method for userAnsers
+  //5. getter method for user answers
   Map<int, String> getUserAnswers() {
     return _userAnswers;
   }
@@ -36,6 +36,7 @@ class PythonViewModel extends ChangeNotifier {
   //6. function to record an answer
   void recordAnswer(int questionId, String selectedAnswer) {
     _userAnswers[questionId + 1] = selectedAnswer;
+
     // This tells the UI to rebuild to show the correct state
     notifyListeners();
   }
@@ -45,7 +46,7 @@ class PythonViewModel extends ChangeNotifier {
     return _userAnswers[questionId];
   }
 
-  //8. calculating final score
+  //8. calculating the final score
   void calculateFinalScore() {
     //step 1 : convert Questions models list into Map<int, String> format
     Map<int, String> answerDictionary = {
@@ -97,22 +98,19 @@ class PythonViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  //9. store final score
+  //9. Store final score
   int? finalScore;
 
-  Future<void> getPythonQuestions() async {
+  Future<void> getJavaScriptQuestions() async {
     isLoading = true;
     notifyListeners();
-
     try {
-      final response = await _dio.get('/questions/py');
-
-      print(response.data);
+      final response = await _dio.get('/questions/js');
 
       // creating JSON list to Dart object list using for loop
       for (var element in response.data) {
         //create dart model object
-        final object = PythonQuestionsModel.fromJson(element);
+        final object = JsQuestionsModel.fromJson(element);
 
         //add this object into list
         questionsList.add(object);
@@ -120,18 +118,18 @@ class PythonViewModel extends ChangeNotifier {
 
       print(questionsList);
     } catch (e) {
-      print('Error during fetching the python questions $e');
+      print('Error during fetching JS questions $e');
     }
 
     isLoading = false;
     notifyListeners();
   }
 
-  Future<void> storeHistoryofPython(HistoryPythonModel model) async {
+  Future<void> storeHistoryOfJs(HistoryJsModel model) async {
     isLoading = true;
     notifyListeners();
 
-    //copy the JWT token from shared preferences
+    //extract JWT toke from shared prefrences to pass to the server
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
 
@@ -147,10 +145,11 @@ class PythonViewModel extends ChangeNotifier {
         ),
       );
 
-      print('Data ${response.data} is stored in database');
+      print('Data ${response.data} is stored in the database.');
     } catch (e) {
-      print('Error during history saving is $e');
+      print('EXception during history storing is $e');
     }
+
     isLoading = false;
     notifyListeners();
   }
