@@ -77,3 +77,8 @@ class PythonQuestionsSchema(BaseModel):
     option_c : str
     option_d : str
     answer : str
+
+# history save schema
+class HistorySaveSchema(BaseModel): 
+    test_name : str
+    score : int

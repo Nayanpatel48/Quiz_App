@@ -9,7 +9,9 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:repradar/Python/model/history_model.dart';
 import 'package:repradar/Python/model/python_questions_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PythonViewModel extends ChangeNotifier {
   //1. This line creates & configure your app's main connection to your backend server.
@@ -33,7 +35,7 @@ class PythonViewModel extends ChangeNotifier {
 
   //6. function to record an answer
   void recordAnswer(int questionId, String selectedAnswer) {
-    _userAnswers[questionId] = selectedAnswer;
+    _userAnswers[questionId + 1] = selectedAnswer;
     // This tells the UI to rebuild to show the correct state
     notifyListeners();
   }
@@ -42,6 +44,61 @@ class PythonViewModel extends ChangeNotifier {
   String? getSelectedOption(int questionId) {
     return _userAnswers[questionId];
   }
+
+  //8. calculating final score
+  void calculateFinalScore() {
+    //step 1 : convert Questions models list into Map<int, String> format
+    Map<int, String> answerDictionary = {
+      for (var question in questionsList) question.id: question.answer,
+    };
+
+    //step 2 : sort the user answers
+    List<int> sortedKeys = _userAnswers.keys.toList()..sort();
+    Map<int, String> sortedUserAnswers = {
+      for (var key in sortedKeys) key: _userAnswers[key]!,
+    };
+
+    //step 3 : compare both using loop & calculate the total score of user
+    int totalScore = 0;
+    int totalQuestions = answerDictionary.length;
+    print(answerDictionary);
+    print(sortedUserAnswers);
+
+    //iterating keys of the answerDictionary
+    for (var questionId in answerDictionary.keys) {
+      //get the correct answer from the current ID
+      final correctAnswer = answerDictionary[questionId];
+
+      //get the user's answer from the current ID
+      final userAnswer = sortedUserAnswers[questionId];
+
+      // check if the both answers are not null & equal with both converted to lower case
+      if (correctAnswer != null &&
+          userAnswer != null &&
+          userAnswer.toLowerCase() == correctAnswer.toLowerCase()) {
+        totalScore++;
+        print('Q$questionId: Correct! (Answer: $correctAnswer)');
+      } else {
+        print(
+          'Q$questionId: Incorrect. (Correct: $correctAnswer, User: $userAnswer)',
+        );
+      }
+    }
+
+    double percentage = (totalScore / totalQuestions) * 100;
+
+    print('\n--- Results ---');
+    print('Total Questions: $totalQuestions');
+    print('Correct Answers: $totalScore');
+    print('Score Percentage: ${percentage.toStringAsFixed(2)}%');
+
+    //step 4 : assign it to the finalScore variable
+    finalScore = totalScore;
+    notifyListeners();
+  }
+
+  //9. store final score
+  int? finalScore;
 
   Future<void> getPythonQuestions() async {
     isLoading = true;
@@ -66,6 +123,34 @@ class PythonViewModel extends ChangeNotifier {
       print('Error during fetching the python questions $e');
     }
 
+    isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> storeHistoryofPython(HistoryPythonModel model) async {
+    isLoading = true;
+    notifyListeners();
+
+    //copy the JWT token from shared preferences
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    try {
+      final response = await _dio.post(
+        '/history/save',
+        data: model.toJson(),
+        options: Options(
+          headers: {
+            // Standard JWT practice: 'Bearer' space 'Token'
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      print('Data ${response.data} is stored in database');
+    } catch (e) {
+      print('Error during history saving is $e');
+    }
     isLoading = false;
     notifyListeners();
   }

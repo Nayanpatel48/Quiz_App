@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:repradar/Auth/view/widgets/loading_indicator.dart';
+import 'package:repradar/Python/model/history_model.dart';
 import 'package:repradar/Python/view/widget/questions_card.dart';
 import 'package:repradar/Python/viewmodel/python_view_model.dart';
 
@@ -74,6 +75,25 @@ class _PythonPageState extends State<PythonPage> {
                       },
                     ),
                   ),
+                  ElevatedButton(
+                    onPressed: () {
+                      vm.calculateFinalScore();
+
+                      //created a history of python test model
+                      final model = HistoryPythonModel(
+                        testName: 'python_test',
+                        testScore: vm.finalScore!,
+                      );
+
+                      //post this to the server using viewmodel function
+                      vm.storeHistoryofPython(model);
+                    },
+                    child: Text('Submit the test'),
+                  ),
+
+                  vm.finalScore != null
+                      ? Text('Your score is ${vm.finalScore}')
+                      : Text('Text submission is pending!'),
                 ],
               ),
             );
