@@ -13,18 +13,6 @@ class PythonPage extends StatefulWidget {
 
 class _PythonPageState extends State<PythonPage> {
   @override
-  void initState() {
-    super.initState();
-    Future.microtask(
-      () => Provider.of<PythonViewModel>(
-        // ignore: use_build_context_synchronously
-        context,
-        listen: false,
-      ).getPythonQuestions(),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Python Test')),
@@ -43,7 +31,7 @@ class _PythonPageState extends State<PythonPage> {
               padding: EdgeInsets.all(8),
               child: Column(
                 children: [
-                  //---------------
+                  //---------------shows spinner/ loading indicator
                   if (vm.isLoading && vm.questionsList.isEmpty)
                     const LoadingIndicator(),
 
@@ -51,31 +39,40 @@ class _PythonPageState extends State<PythonPage> {
                   if (vm.questionsList.isEmpty)
                     const Text('No questions found!'),
 
-                  //------------------
-                  ListView.builder(
-                    // 1. IMPORTANT: Makes the ListView take only the height needed for its items.
-                    shrinkWrap: true,
+                  //------------------build scrollable list of question widgets
+                  Expanded(
+                    // We use Expanded here to ensure the ListView (which wants infinite height)
+                    // gets a bounded space when placed inside a Column. If the ListView is the
+                    // only widget in the body of a Scaffold, Expanded is not needed.
+                    child: ListView.builder(
+                      // ESSENTIAL. Defines how many items the list should build.
+                      itemCount: vm.questionsList.length,
 
-                    // 2. IMPORTANT: Disables the ListView's own scrolling, letting the outer
-                    // SingleChildScrollView handle the scroll physics.
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: vm.questionsList.length,
-                    itemBuilder: (context, index) {
-                      final question = vm.questionsList[index];
+                      // ESSENTIAL. Builds the widget for each index.
+                      itemBuilder: (context, index) {
+                        final questionModel = vm.questionsList[index];
 
-                      //------------use card here
-                      return QuestionsCard(
-                        question: question,
-                        onOptionSelected: (selectedAnswer) {
-                          // This callback gets the actual string of the selected option
-                          print(
-                            'Question ${question.id}: User selected: $selectedAnswer',
-                          );
-                          // Here, you would typically update a map of user answers
-                          // userAnswers[question.id] = selectedAnswer;
-                        },
-                      );
-                    },
+                        //------------use card here
+                        return QuestionsCard(
+                          // PASS THE PREVIOUSLY SAVED ANSWER
+                          initialSelection: vm.getSelectedOption(
+                            questionModel.id,
+                          ),
+
+                          questionModel: questionModel,
+                          onOptionSelected: (selectedAnswer) {
+                            // This callback gets the actual string of the selected option
+                            print(
+                              'Question ${questionModel.id}: User selected: $selectedAnswer',
+                            );
+                            print(vm.getUserAnswers());
+                            vm.recordAnswer(index, selectedAnswer!);
+                            // Here, you would typically update a map of user answers
+                            // userAnswers[question.id] = selectedAnswer;
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),

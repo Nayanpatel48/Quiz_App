@@ -23,6 +23,26 @@ class PythonViewModel extends ChangeNotifier {
   //3. for keep track of loading state
   bool isLoading = false;
 
+  //4. store the selected answers by the user during test in view model
+  final Map<int, String> _userAnswers = {};
+
+  //5. getter method for userAnsers
+  Map<int, String> getUserAnswers() {
+    return _userAnswers;
+  }
+
+  //6. function to record an answer
+  void recordAnswer(int questionId, String selectedAnswer) {
+    _userAnswers[questionId] = selectedAnswer;
+    // This tells the UI to rebuild to show the correct state
+    notifyListeners();
+  }
+
+  //7. function to retrieve the previously selected answer
+  String? getSelectedOption(int questionId) {
+    return _userAnswers[questionId];
+  }
+
   Future<void> getPythonQuestions() async {
     isLoading = true;
     notifyListeners();
