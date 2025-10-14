@@ -35,6 +35,7 @@ class DartViewModel extends ChangeNotifier {
   //6. function to record answers given by user
   void recordAnswer(int questionId, String questionAnswer) {
     _userAnswers[questionId + 1] = questionAnswer;
+    notifyListeners();
   }
 
   //7. function to retrieve previously selected answer

@@ -9,8 +9,8 @@ class QuestionsCard extends StatelessWidget {
 
   //constructor of this widget
   const QuestionsCard({
-    required this.initialSelection,
     required this.questionModel,
+    required this.initialSelection,
     this.onOptionSelected, //call back is optional
     super.key,
   });

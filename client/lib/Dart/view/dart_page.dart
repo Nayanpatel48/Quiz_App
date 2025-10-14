@@ -51,10 +51,11 @@ class _DartPageState extends State<DartPage> {
 
                         //----------use the card here
                         return QuestionCard(
-                          questionsModel: questionModel,
                           initialSelection: vm.getPreviouslySelectedAns(
                             questionModel.id,
                           ),
+
+                          questionsModel: questionModel,
                           onOptionSelected: (selectedAnswer) {
                             // This callback gets the actual string of the selected option
                             vm.recordAnswer(index, selectedAnswer!);

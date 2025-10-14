@@ -9,10 +9,10 @@ class QuestionCard extends StatelessWidget {
 
   //constructor
   const QuestionCard({
-    super.key,
     required this.questionsModel,
     required this.initialSelection,
-    this.onOptionSelected, //optiomal
+    this.onOptionSelected, //optional
+    super.key,
   });
 
   //helper method for listing all the options for easier iteration
