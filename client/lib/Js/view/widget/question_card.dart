@@ -8,9 +8,7 @@ class QuestionCard extends StatelessWidget {
   final ValueChanged<String?>? onOptionSelected;
 
   //constructor of this widget
-  //whenever we create the instance of this widget we must pass the required
-  //arguments.
-  QuestionCard({
+  const QuestionCard({
     super.key,
     required this.questionsModel,
     required this.initialSelection,
@@ -30,6 +28,7 @@ class QuestionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.lightGreenAccent,
       child: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -55,12 +54,15 @@ class QuestionCard extends StatelessWidget {
                 child: ElevatedButton(
                   //1. give the color of the button based on saved state
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: isSelected ? Colors.blue : Colors.grey,
+                    backgroundColor: isSelected
+                        ? Colors.lightBlueAccent
+                        : Colors.white,
                     elevation: 0,
                   ),
 
                   onPressed: () {
                     //2. as user choses the option immediately tell the viewmodel
+                    onOptionSelected!(optionText);
                   },
                   child: Align(
                     alignment: Alignment.centerLeft,

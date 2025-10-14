@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:repradar/Python/model/python_questions_model.dart';
+import 'package:repradar/Dart/model/dart_questions_model.dart';
 
-class QuestionsCard extends StatelessWidget {
-  final PythonQuestionsModel questionModel;
+class QuestionCard extends StatelessWidget {
+  final DartQuestionsModel questionsModel;
   final String? initialSelection;
   final ValueChanged<String?>? onOptionSelected;
   //call back when an option is selected
 
-  //constructor of this widget
-  const QuestionsCard({
-    required this.initialSelection,
-    required this.questionModel,
-    this.onOptionSelected, //call back is optional
+  //constructor
+  const QuestionCard({
     super.key,
+    required this.questionsModel,
+    required this.initialSelection,
+    this.onOptionSelected, //optiomal
   });
 
   //helper method for listing all the options for easier iteration
-  List<String> get _options {
+  List<String> getOptions() {
     return [
-      questionModel.optionA,
-      questionModel.optionB,
-      questionModel.optionC,
-      questionModel.optionD,
+      questionsModel.optionA,
+      questionsModel.optionB,
+      questionsModel.optionC,
+      questionsModel.optionD,
     ];
   }
 
@@ -33,17 +33,17 @@ class QuestionsCard extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Display the question text
+            //Display the question text
             Text(
-              questionModel.question,
+              questionsModel.question,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
 
             //----------
             const SizedBox(height: 12),
 
-            //---------iterate over all available options
-            ..._options.map((optionText) {
+            //--------
+            ...getOptions().map((optionText) {
               //check if this option matches the saved selection
               final isSelected = optionText == initialSelection;
 

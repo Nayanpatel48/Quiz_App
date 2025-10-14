@@ -58,7 +58,7 @@ class PythonViewModel extends ChangeNotifier {
       for (var key in sortedKeys) key: _userAnswers[key]!,
     };
 
-    //step 3 : compare both using loop & calculate the total score of user
+    //step 3 : compare both lists using loop & calculate the total score of user
     int totalScore = 0;
     int totalQuestions = answerDictionary.length;
     print(answerDictionary);
@@ -85,12 +85,9 @@ class PythonViewModel extends ChangeNotifier {
       }
     }
 
-    double percentage = (totalScore / totalQuestions) * 100;
-
     print('\n--- Results ---');
     print('Total Questions: $totalQuestions');
     print('Correct Answers: $totalScore');
-    print('Score Percentage: ${percentage.toStringAsFixed(2)}%');
 
     //step 4 : assign it to the finalScore variable
     finalScore = totalScore;

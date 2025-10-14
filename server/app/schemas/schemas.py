@@ -88,6 +88,16 @@ class JsQuestionsSchema(BaseModel):
     option_d : str
     answer : str
 
+# dart questions schema
+class DartQuestionsSchema(BaseModel):
+    id : int
+    question : str
+    option_a : str
+    option_b : str
+    option_c : str
+    option_d : str
+    answer : str
+
 # history save schema
 class HistorySaveSchema(BaseModel): 
     test_name : str

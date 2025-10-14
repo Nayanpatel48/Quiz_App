@@ -22,6 +22,7 @@ class _PythonPageState extends State<PythonPage> {
           final vm = PythonViewModel();
 
           vm.getPythonQuestions();
+
           return vm;
         },
 

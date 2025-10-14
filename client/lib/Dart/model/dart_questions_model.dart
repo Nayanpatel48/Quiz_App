@@ -24,10 +24,10 @@ class DartQuestionsModel {
       DartQuestionsModel(
         id: json['id'],
         question: json['question'],
-        optionA: json['optionA'],
-        optionB: json['optionB'],
-        optionC: json['optionC'],
-        optionD: json['optionD'],
+        optionA: json['option_a'],
+        optionB: json['option_b'],
+        optionC: json['option_c'],
+        optionD: json['option_d'],
         answer: json['answer'],
       );
 }

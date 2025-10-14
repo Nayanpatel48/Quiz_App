@@ -86,13 +86,6 @@ class JsViewModel extends ChangeNotifier {
       }
     }
 
-    double percentage = (totalScore / totalQuestions) * 100;
-
-    print('\n--- Results ---');
-    print('Total Questions: $totalQuestions');
-    print('Correct Answers: $totalScore');
-    print('Score Percentage: ${percentage.toStringAsFixed(2)}%');
-
     //step 4 : assign it to the finalScore variable
     finalScore = totalScore;
     notifyListeners();
