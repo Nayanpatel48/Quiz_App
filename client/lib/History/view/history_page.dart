@@ -14,7 +14,7 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('History Page')),
+      // appBar: AppBar(title: const Text('History Page')),
       body: ChangeNotifierProvider(
         create: (context) {
           final vm = HistoryViewModel();
