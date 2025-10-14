@@ -61,7 +61,7 @@ def get_user_history(
     user_id = decode_jwt(token)
 
     # 2. first fetch all the history objects/ records from the database
-    history_objects = db.query(HistoryModel).all()
+    history_objects = db.query(HistoryModel).filter(HistoryModel.user_id == user_id).all()
 
     # 3. now from this objects extract all the objects which are not related to 
     # currently logged in user.
