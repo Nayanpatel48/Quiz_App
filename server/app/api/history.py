@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Annotated
+from typing import Annotated, List
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
@@ -49,3 +49,22 @@ def save_history(
 
     # 6. return newly created user
     return history_object
+
+# 4. get user specific history
+@router.get('/history', response_model=List[HistorySchema])
+def get_user_history(
+    token: Annotated[str, Depends(oauth2_scheme)],
+    # Token is the string from the Authorization header
+    db : Session = Depends(get_db),
+    ):
+    # 1. Decode the token to get the user identifier (e.g., ID).
+    user_id = decode_jwt(token)
+
+    # 2. first fetch all the history objects/ records from the database
+    history_objects = db.query(HistoryModel).all()
+
+    # 3. now from this objects extract all the objects which are not related to 
+    # currently logged in user.
+    print(type(history_objects))
+
+    return history_objects

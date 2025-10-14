@@ -4,7 +4,7 @@ class HistoryModel {
   final String testName;
   final int userId;
   final int score;
-  final DateTime createdAt;
+  final String createdAt;
 
   //constructor
   HistoryModel({
