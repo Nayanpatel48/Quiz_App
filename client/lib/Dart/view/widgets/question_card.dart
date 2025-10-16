@@ -5,9 +5,7 @@ class QuestionCard extends StatelessWidget {
   final DartQuestionsModel questionsModel;
   final String? initialSelection;
   final ValueChanged<String?>? onOptionSelected;
-  //call back when an option is selected
 
-  //constructor
   const QuestionCard({
     required this.questionsModel,
     required this.initialSelection,
@@ -15,7 +13,6 @@ class QuestionCard extends StatelessWidget {
     super.key,
   });
 
-  //helper method for listing all the options for easier iteration
   List<String> getOptions() {
     return [
       questionsModel.optionA,
@@ -33,21 +30,16 @@ class QuestionCard extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            //Display the question text
             Text(
               questionsModel.question,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
 
-            //----------
             const SizedBox(height: 12),
 
-            //--------
             ...getOptions().map((optionText) {
-              //check if this option matches the saved selection
               final isSelected = optionText == initialSelection;
 
-              //-------
               return Padding(
                 padding: EdgeInsets.symmetric(vertical: 4.0),
                 child: ElevatedButton(

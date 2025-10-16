@@ -26,26 +26,19 @@ class _PythonPageState extends State<PythonPage> {
           return vm;
         },
 
-        //-------------
         child: Consumer<PythonViewModel>(
           builder: (context, vm, _) {
             return Padding(
               padding: EdgeInsets.all(8),
               child: Column(
                 children: [
-                  //---------------shows spinner/ loading indicator
                   if (vm.isLoading && vm.questionsList.isEmpty)
                     const LoadingIndicator(),
 
-                  //----------------
                   if (vm.questionsList.isEmpty)
                     const Text('No questions found!'),
 
-                  //------------------build scrollable list of question widgets
                   Expanded(
-                    // We use Expanded here to ensure the ListView (which wants infinite height)
-                    // gets a bounded space when placed inside a Column. If the ListView is the
-                    // only widget in the body of a Scaffold, Expanded is not needed.
                     child: ListView.builder(
                       // ESSENTIAL. Defines how many items the list should build.
                       itemCount: vm.questionsList.length,
@@ -54,7 +47,6 @@ class _PythonPageState extends State<PythonPage> {
                       itemBuilder: (context, index) {
                         final questionModel = vm.questionsList[index];
 
-                        //------------use card here
                         return QuestionsCard(
                           // PASS THE PREVIOUSLY SAVED ANSWER
                           initialSelection: vm.getSelectedOption(
@@ -63,10 +55,7 @@ class _PythonPageState extends State<PythonPage> {
 
                           questionModel: questionModel,
                           onOptionSelected: (selectedAnswer) {
-                            // This callback gets the actual string of the selected option
                             vm.recordAnswer(index, selectedAnswer!);
-                            // Here, you would typically update a map of user answers
-                            // userAnswers[question.id] = selectedAnswer;
                           },
                         );
                       },
@@ -76,13 +65,11 @@ class _PythonPageState extends State<PythonPage> {
                     onPressed: () {
                       vm.calculateFinalScore();
 
-                      //created a history of python test model
                       final model = HistoryPythonModel(
                         testName: 'python_test',
                         testScore: vm.finalScore!,
                       );
 
-                      //post this to the server using viewmodel function
                       vm.storeHistoryofPython(model);
                     },
                     child: Text('Submit the test'),

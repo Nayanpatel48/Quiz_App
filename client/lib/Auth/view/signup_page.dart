@@ -8,22 +8,17 @@ import 'package:repradar/Auth/viewmodel/auth_view_model.dart';
 import 'package:repradar/Home/view/main_page.dart';
 
 class SignUpPage extends StatefulWidget {
-  //constructor
   const SignUpPage({super.key});
 
-  // "Hey Flutter, when you build this LoginScreen, create and attach its 'brain',
-  // which is called _LoginScreenState."
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  //for storing text from text fields
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  // "When this screen is permanently gone, clean up the text field controllers to prevent memory leaks."
   @override
   void dispose() {
     super.dispose();
@@ -45,55 +40,45 @@ class _SignUpPageState extends State<SignUpPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  //--------------------
                   TextField(
                     controller: usernameController,
                     decoration: const InputDecoration(label: Text('Username')),
                   ),
 
-                  //--------------
                   TextField(
                     controller: emailController,
                     decoration: const InputDecoration(label: Text('Email')),
                   ),
 
-                  //-------------
                   TextField(
                     controller: passwordController,
                     decoration: const InputDecoration(label: Text('Password')),
                   ),
 
-                  //--------------
                   const SizedBox(height: 16),
 
-                  //--------------
                   vm.isLoading
                       ? LoadingIndicator()
                       : ElevatedButton(
                           onPressed: () async {
-                            // as soon as button is pressed create an user object
                             final newUser = User(
                               username: usernameController.text,
                               email: emailController.text,
                               hashedPassword: passwordController.text,
                             );
 
-                            // pass newly created user object to the view model function
                             await vm.createUser(newUser);
 
-                            // checking if the user is created successfully or not
                             String message = vm.isUserCreated
                                 ? 'Account created successfully!'
                                 : vm.errorMessage;
 
-                            // show the snack bar
                             ScaffoldMessenger.of(
                               // ignore: use_build_context_synchronously
                               context,
                             ).showSnackBar(SnackBar(content: Text(message)));
 
-                            // now since user is created we can login them directly
-
+                            // since user is created we can login them directly
                             await vm.loginUser(
                               UserLoginModel(
                                 email: emailController.text,
@@ -101,12 +86,10 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                             );
 
-                            // check if the user is logged in or not
                             message = vm.isUserLoggedIn
                                 ? 'Successfully logged in!'
                                 : vm.errorMessage;
 
-                            // show the snack bar
                             ScaffoldMessenger.of(
                               // ignore: use_build_context_synchronously
                               context,
@@ -130,7 +113,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: const Text('Sign Up'),
                         ),
 
-                  //--------------
                   TextButton(
                     onPressed: () => Navigator.push(
                       context,

@@ -14,7 +14,6 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: const Text('History Page')),
       body: ChangeNotifierProvider(
         create: (context) {
           final vm = HistoryViewModel();
@@ -30,11 +29,9 @@ class _HistoryPageState extends State<HistoryPage> {
               padding: EdgeInsets.all(8),
               child: Column(
                 children: [
-                  //show the loading indiactor
                   if (vm.isLoading && vm.historyObjects.isEmpty)
                     const LoadingIndicator(),
 
-                  //show history is empty
                   if (vm.historyObjects.isEmpty)
                     const Text('No history found!'),
 
@@ -51,7 +48,6 @@ class _HistoryPageState extends State<HistoryPage> {
                             padding: EdgeInsets.all(8),
                             child: Column(
                               children: [
-                                //display the text
                                 Text(
                                   '${questionModel.id}. ${questionModel.testName} \n score : ${questionModel.score} \n Date of attempt : ${questionModel.createdAt}',
                                 ),

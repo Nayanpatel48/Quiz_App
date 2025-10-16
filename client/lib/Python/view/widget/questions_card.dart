@@ -5,9 +5,7 @@ class QuestionsCard extends StatelessWidget {
   final PythonQuestionsModel questionModel;
   final String? initialSelection;
   final ValueChanged<String?>? onOptionSelected;
-  //call back when an option is selected
 
-  //constructor of this widget
   const QuestionsCard({
     required this.questionModel,
     required this.initialSelection,
@@ -15,7 +13,6 @@ class QuestionsCard extends StatelessWidget {
     super.key,
   });
 
-  //helper method for listing all the options for easier iteration
   List<String> get _options {
     return [
       questionModel.optionA,
@@ -33,18 +30,14 @@ class QuestionsCard extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Display the question text
             Text(
               questionModel.question,
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
 
-            //----------
             const SizedBox(height: 12),
 
-            //---------iterate over all available options
             ..._options.map((optionText) {
-              //check if this option matches the saved selection
               final isSelected = optionText == initialSelection;
 
               //-------

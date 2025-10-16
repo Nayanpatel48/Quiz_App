@@ -6,7 +6,6 @@ import 'package:repradar/Js/view/widget/question_card.dart';
 import 'package:repradar/Js/viewmodel/js_view_model.dart';
 
 class JsPage extends StatefulWidget {
-  //constructor of this class
   const JsPage({super.key});
 
   @override
@@ -33,19 +32,13 @@ class _JsPageState extends State<JsPage> {
               padding: EdgeInsets.all(8),
               child: Column(
                 children: [
-                  //-------------show loading indicator
                   if (vm.isLoading && vm.questionsList.isEmpty)
                     const LoadingIndicator(),
 
-                  //-------------
                   if (vm.questionsList.isEmpty)
                     Text('Questions list is empty!'),
 
-                  //-------------build scrollable list of questions
                   Expanded(
-                    // We use Expanded here to ensure the ListView (which wants infinite height)
-                    // gets a bounded space when placed inside a Column. If the ListView is the
-                    // only widget in the body of a Scaffold, Expanded is not needed.
                     child: ListView.builder(
                       // ESSENTIAL. Defines how many items the list should build.
                       itemCount: vm.questionsList.length,
@@ -54,7 +47,6 @@ class _JsPageState extends State<JsPage> {
                       itemBuilder: (context, index) {
                         final questionsModel = vm.questionsList[index];
 
-                        //------------use card here
                         return QuestionCard(
                           // PASS THE PREVIOUSLY SAVED ANSWER
                           initialSelection: vm.getSelectedOption(

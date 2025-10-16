@@ -15,21 +15,18 @@ class _HomePageState extends State<HomePage> {
   void _handleCardTap(BuildContext context, String subjectName) {
     switch (subjectName) {
       case 'Python':
-        //Navigate to the python screen
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const PythonPage()),
         );
         break;
       case 'JavaScript':
-        //Navigate to the python screen
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const JsPage()),
         );
         break;
       case 'Dart':
-        //Navigate to the python screen
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const DartPage()),
@@ -41,7 +38,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: const Text('Home Page'),),
       body: Column(
         children: [
           CardWidget(

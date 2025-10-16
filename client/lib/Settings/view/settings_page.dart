@@ -16,14 +16,9 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: const Text('Settings Page')),
-
-      //---------
       body: ChangeNotifierProvider(
         create: (context) {
           final vm = SettingsViewModel();
-
-          //call the data fetch immediately after the view model is initiated.
           vm.getCurrentlyLoggedInUser();
           return vm;
         },
@@ -31,8 +26,6 @@ class _SettingsPageState extends State<SettingsPage> {
           builder: (context, vm, _) {
             return Padding(
               padding: const EdgeInsets.all(8),
-
-              //-------
               child: Column(
                 children: [
                   Text(
@@ -44,17 +37,12 @@ class _SettingsPageState extends State<SettingsPage> {
                     style: TextStyle(fontSize: 20),
                   ),
 
-                  //----------------------
                   vm.isLoading
                       ? LoadingIndicator()
                       : ElevatedButton(
                           onPressed: () async {
-                            // It removes the user's saved 'token' from the device's local storage.
-                            //This token is what typically keeps the user logged in between app sessions.
                             final pref = await SharedPreferences.getInstance();
-
                             await pref.remove('token');
-
                             Navigator.push(
                               // ignore: use_build_context_synchronously
                               context,

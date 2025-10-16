@@ -6,7 +6,6 @@ import 'package:repradar/Dart/view/widgets/question_card.dart';
 import 'package:repradar/Dart/viewmodel/dart_view_model.dart';
 
 class DartPage extends StatefulWidget {
-  // constructor
   const DartPage({super.key});
 
   @override
@@ -27,18 +26,15 @@ class _DartPageState extends State<DartPage> {
           return vm;
         },
 
-        //--------
         child: Consumer<DartViewModel>(
           builder: (context, vm, _) {
             return Padding(
               padding: EdgeInsets.all(8),
               child: Column(
                 children: [
-                  //-----------showing loading indicator
                   if (vm.isLoading && vm.questions.isEmpty)
                     const LoadingIndicator(),
 
-                  //-----------showing list is empty message
                   if (vm.questions.isEmpty)
                     const Text('Questions list is empty!'),
 
@@ -49,7 +45,6 @@ class _DartPageState extends State<DartPage> {
                       itemBuilder: (context, index) {
                         final questionModel = vm.questions[index];
 
-                        //----------use the card here
                         return QuestionCard(
                           initialSelection: vm.getPreviouslySelectedAns(
                             questionModel.id,
@@ -57,10 +52,7 @@ class _DartPageState extends State<DartPage> {
 
                           questionsModel: questionModel,
                           onOptionSelected: (selectedAnswer) {
-                            // This callback gets the actual string of the selected option
                             vm.recordAnswer(index, selectedAnswer!);
-                            // Here, you would typically update a map of user answers
-                            // userAnswers[question.id] = selectedAnswer;
                           },
                         );
                       },

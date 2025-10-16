@@ -4,7 +4,6 @@ import 'package:repradar/Home/view/home_page.dart';
 import 'package:repradar/Settings/view/settings_page.dart';
 
 class MainPage extends StatefulWidget {
-  //constructor of the widget
   const MainPage({super.key});
 
   @override
@@ -12,25 +11,16 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  //keep track of the current index
   int _currentIndex = 0;
-
-  //final list of pages that will be displayed
   final _pages = [HomePage(), HistoryPage(), SettingsPage()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //-------------
       body: _pages[_currentIndex],
-
-      //------------
       bottomNavigationBar: Container(
-        //----------
         decoration: BoxDecoration(
           color: Colors.white,
-
-          //--------------
           boxShadow: [
             BoxShadow(
               color: Colors.black12,
@@ -40,9 +30,7 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
 
-        //---------
         child: BottomNavigationBar(
-          //----------
           currentIndex: _currentIndex,
 
           //---------

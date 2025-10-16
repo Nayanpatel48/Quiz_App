@@ -1,5 +1,4 @@
 class DartQuestionsModel {
-  // properties of the class
   final int id;
   final String question;
   final String optionA;
@@ -8,7 +7,6 @@ class DartQuestionsModel {
   final String optionD;
   final String answer;
 
-  //constructor
   DartQuestionsModel({
     required this.id,
     required this.question,
@@ -19,7 +17,6 @@ class DartQuestionsModel {
     required this.answer,
   });
 
-  //Json to Dart conversion
   factory DartQuestionsModel.fromJson(Map<String, dynamic> json) =>
       DartQuestionsModel(
         id: json['id'],
