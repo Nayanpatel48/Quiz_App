@@ -8,18 +8,15 @@ from app.database.database import get_db
 from app.models.models import HistoryModel
 from app.schemas.schemas import HistorySaveSchema, HistorySchema
 
-# it is like door keeper who wants temporary premium pass so that you can enter in the club.
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-# 1. this lets you group related end points together
 router = APIRouter()
 
-# 2. get all the history of a perticular user
+# get all the history of a perticular user
 @router.get('/', response_model=HistorySchema)
 def get_all_history_of_user(db : Session = Depends(get_db)):
     pass
 
-# 3. add history to the table
+# add history to the table
 @router.post('/save', response_model=HistorySchema)
 def save_history(
     history : HistorySaveSchema,
@@ -50,7 +47,7 @@ def save_history(
     # 6. return newly created user
     return history_object
 
-# 4. get user specific history
+# get user specific history
 @router.get('/history', response_model=List[HistorySchema])
 def get_user_history(
     token: Annotated[str, Depends(oauth2_scheme)],

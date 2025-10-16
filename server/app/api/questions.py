@@ -7,11 +7,9 @@ from app.schemas.schemas import DartQuestionsSchema, JsQuestionsSchema, PythonQu
 
 # purpose of this code : This code defines the API endpoints related to the Questions.
 
-# 1 : this let you group related endpoints together 
-
 router = APIRouter()
 
-# 2. get all the questions of Python model
+# get all the questions of Python model
 @router.get('/py', response_model=List[PythonQuestionsSchema])
 def get_python_questions(db : Session = Depends(get_db)):
     # fetch all the python questions from python questions table
@@ -27,7 +25,7 @@ def get_python_questions(db : Session = Depends(get_db)):
 
     return all_questions
 
-# 3. get all the questions of JavaScript
+# get all the questions of JavaScript
 @router.get('/js', response_model=List[JsQuestionsSchema])
 def get_js_questions(db: Session = Depends(get_db)):
     # fetch all the javaScript questions from javaScrpt questions table
@@ -42,7 +40,7 @@ def get_js_questions(db: Session = Depends(get_db)):
     # based on the response_model.
     return all_questions
 
-# 3. get all the questions of JavaScript
+# get all the questions of JavaScript
 @router.get('/dart', response_model=List[DartQuestionsSchema])
 def get_js_questions(db: Session = Depends(get_db)):
     # fetch all the javaScript questions from javaScrpt questions table

@@ -1,11 +1,10 @@
 from datetime import datetime, timedelta
-from typing import Annotated
 import bcrypt
-from fastapi import Depends, HTTPException
+from fastapi import HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 
-SECRET_KEY = "supersecretkey"   # ⚠️ use env variable in production
+SECRET_KEY = "supersecretkey"  
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 300
 # 5hrs

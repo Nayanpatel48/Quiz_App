@@ -1,12 +1,6 @@
 from pydantic_settings import BaseSettings
 
-# why this is useful?
-# ans : because all the settings are in one place so it is very easy to
-# manage them & change them if needed
-
 class Settings(BaseSettings):
-    # here we've defined settings that our application needs in the form of 
-    # class attributes/ properties
     DATABASE_URL: str = "postgresql://app_user:123456789@localhost/gamified_coding_app"
     SECRET_KEY: str = "your-secret-key-here"
     ALGORITHM: str = "HS256"

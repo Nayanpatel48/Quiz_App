@@ -8,15 +8,9 @@ from app.database.database import get_db
 from app.models.models import UserModel
 from app.schemas.schemas import GetCurrUser, Token, User, UserCreate, UserLogin
 
-# purpose of this code : This code defines the API endpoints related to the currently logged-in 
-#                        user's profile. It uses the conventional /me path to allow a user to manage 
-#                        their own information without needing to know their own user ID.
-
-# 1 : this let you group related endpoints together 
+# purpose of this code : This code defines the API endpoints related to authentication.
 
 router = APIRouter()
-
-# it is like door keeper who wants temporary premium pass so that you can enter in the club.
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 # 2. create a new user
